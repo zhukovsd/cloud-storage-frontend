@@ -34,14 +34,21 @@ const highlightSubstring = (text, substring) => {
 
 export default function SearchObject({object, selectedIds, bufferIds, handlePreview}) {
 
-    const {goToFolder, searchName} = useStorageNavigation();
+    const {goToFolder, searchName, loadFolder, setSearchName, setSearchedContent} = useStorageNavigation();
     const {setSelectionMode, isSelectionMode, isCutMode, isCopyMode} = useStorageSelection();
 
     const hiddenFolderTag = object.name === '*empty-folder-tag*'
 
+
+    function handleEndSearch() {
+        setSearchName("");
+        setSearchedContent([]);
+    }
+
     const onClick = isMob ? () => {
         if (object.folder && !isSelectionMode && !copied && !cutted) {
-            goToFolder(object.name);
+            loadFolder(object.path);
+            handleEndSearch();
             return;
         }
         if (!isSelectionMode) {
@@ -52,7 +59,9 @@ export default function SearchObject({object, selectedIds, bufferIds, handlePrev
 
     const onDoubleClick = !isMob ? () => {
         if (object.folder && !copied && !cutted) {
-            goToFolder(object.name);
+            loadFolder(object.path);
+            handleEndSearch();
+
             return;
         }
         handlePreview(object);
@@ -103,10 +112,11 @@ export default function SearchObject({object, selectedIds, bufferIds, handlePrev
                     }}
                     elevation={0}
                 >
-                    <Box sx={{position: 'absolute', width: '40px', left: 8, bottom: 10,}}>
+                    <Box sx={{position: 'absolute', width: '40px', left: 8, bottom: object.folder ? 65 : 10}}>
 
 
-                            <FileFormatIcon name={object.name} style={''}/>
+                        <FileFormatIcon name={object.name} style={''}/>
+
 
                         {copied && <ContentCopyIcon
                             sx={{color: 'black', position: 'absolute', fontSize: '15px', bottom: 11, left: 3}}/>}
@@ -133,7 +143,8 @@ export default function SearchObject({object, selectedIds, bufferIds, handlePrev
                             },
                         }}
                     >
-                        {highlightSubstring(object.name, searchName)}
+                        {highlightSubstring(object.folder ? object.name.slice(0, -1) : object.name
+                            , searchName)}
                     </Typography>
                     <Typography
                         sx={{
