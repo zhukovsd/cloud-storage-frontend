@@ -2,7 +2,7 @@ import {Box, CircularProgress, Container} from "@mui/material";
 import {useStorageNavigation} from "../context/Storage/StorageNavigationProvider.jsx";
 import * as React from "react";
 import {useEffect, useRef, useState} from "react";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {ObjectsContainer} from "../components/FileBrowser/ObjectsContainer.jsx";
 import {FileBrowserHeader} from "../components/FileBrowserHeader/FileBrowserHeader.jsx";
 import {FileTasksModal} from "../modals/FileTasksModal/FileTasksModal.jsx";
@@ -27,7 +27,7 @@ const LoadingBox = () => {
 
 export default function Files() {
 
-    const {folderContentLoading, loadFolder, folderContent, isRootFolder, isSearchMode} = useStorageNavigation();
+    const {folderContentLoading, loadFolder, isSearchMode} = useStorageNavigation();
     const location = useLocation();
 
 
@@ -38,25 +38,9 @@ export default function Files() {
         loadFolder(decodedUrl);
     };
 
-
-    useEffect(() => {
-        loadFolderFromPath();
-    }, []);
-
-
     useEffect(() => {
         loadFolderFromPath();
     }, [location.pathname]);
-
-    const navigate = useNavigate();
-    useEffect(() => {
-        // if ((!folderContent || folderContent.length === 0) && !folderContentLoading && !isRootFolder) {
-        //     setTimeout(() =>
-        //             navigate(("/files/"))
-        //         , 500)
-        // }
-    }, [folderContent]);
-
 
     const dragRef = useRef();
 

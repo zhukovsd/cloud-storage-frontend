@@ -220,6 +220,7 @@ export const FileSelection = ({
 
                         {selectedIds.slice(0, 4).map((id, index) => {
                                 return <Box
+                                    key={index}
                                     sx={{
                                         position: "absolute",
                                         width: "100%",

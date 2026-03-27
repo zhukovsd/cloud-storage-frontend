@@ -1,9 +1,9 @@
 import {Avatar, Box, Drawer, IconButton, Menu, Slide, Tooltip} from "@mui/material";
 import {useState} from "react";
 import {useAuthContext} from "../../../context/Auth/AuthContext.jsx";
-import {accountMenuItems} from "./AccountMenuItems.jsx";
-import {authenticationMenuItems} from "./AuthenticationMenuItems.jsx";
 import MenuIcon from "@mui/icons-material/Menu";
+import {AccountMenuItems} from "./AccountMenuItems.jsx";
+import {AuthenticationMenuItems} from "./AuthenticationMenuItems.jsx";
 
 
 export const Settings = () => {
@@ -17,23 +17,6 @@ export const Settings = () => {
     }
 
     const {auth} = useAuthContext();
-
-    const [isProfileModalOpen, setProfileModalOpen] = useState(false);
-    const handleOpenProfileModal = async () => {
-        setProfileModalOpen(true);
-    }
-    const handleCloseProfileModal = () => {
-        setProfileModalOpen(false);
-    };
-
-    const [isSecurityModalOpen, setSecurityModalOpen] = useState(false);
-    const handleOpenSecurityModal = async () => {
-        setSecurityModalOpen(true);
-    }
-    const handleCloseSecurityModal = () => {
-        setSecurityModalOpen(false);
-    };
-
 
     const getMenuVariant = () => {
         return (
@@ -63,8 +46,8 @@ export const Settings = () => {
                 TransitionComponent={Slide}
             >
                 {auth.isAuthenticated ?
-                    accountMenuItems(handleOpenProfileModal, handleOpenSecurityModal)
-                    : authenticationMenuItems()}
+                    <AccountMenuItems/>
+                    : <AuthenticationMenuItems/>}
             </Menu>
         )
     }
@@ -99,14 +82,14 @@ export const Settings = () => {
                 }}
             >
                 {auth.isAuthenticated ?
-                    accountMenuItems(handleOpenProfileModal, handleOpenSecurityModal)
-                    : authenticationMenuItems()}
+                    <AccountMenuItems/>
+                    : <AuthenticationMenuItems/>}
             </Drawer>
         )
     }
 
     return (
-        <>
+        <div>
             <Box>
                 <Tooltip title="Menu">
                     <IconButton onClick={handleOpenMenu} size="small" sx={{mr: "8px"}}>
@@ -126,7 +109,7 @@ export const Settings = () => {
             </Box>
             {getMenuVariant()}
             {getDrawerVariant()}
-        </>
+        </div>
     )
 
 }

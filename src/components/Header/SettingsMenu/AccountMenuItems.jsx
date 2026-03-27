@@ -7,7 +7,7 @@ import {useNotification} from "../../../context/Notification/NotificationProvide
 import {GITHUB_INFO} from "../../../UrlConstants.jsx";
 
 
-export const accountMenuItems = (openProfileModal, openSecurityModal) => {
+export const AccountMenuItems = () => {
     const {logout} = useAuthContext();
     const navigate = useNavigate();
     const {showInfo, showError} = useNotification();

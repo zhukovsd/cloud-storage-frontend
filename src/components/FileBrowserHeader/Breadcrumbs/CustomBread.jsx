@@ -48,6 +48,7 @@ export const CustomBread = () => {
 
                         return (
                             <Chip
+                                key={index}
                                 label={item.slice(0, -1)}
                                 sx={{
                                     maxWidth: '120px',
