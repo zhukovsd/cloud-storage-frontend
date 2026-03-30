@@ -6,7 +6,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import {GITHUB_INFO} from "../../../UrlConstants.jsx";
 
 
-export const authenticationMenuItems = () => {
+export const AuthenticationMenuItems = () => {
     const navigate = useNavigate();
 
     return (

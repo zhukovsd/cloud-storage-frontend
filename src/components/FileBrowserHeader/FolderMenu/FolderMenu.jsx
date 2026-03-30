@@ -108,7 +108,7 @@ export const FolderMenu = ({anchorEl, handleCloseMenu}) => {
 
 
     const fileMenu = () => {
-        return (<>
+        return (<div>
             <List sx={{minWidth: '350px'}} disablePadding component="nav" aria-label="main mailbox folders">
                 <ListSubheader id="nested-list-subheader"
                                sx={{
@@ -173,7 +173,7 @@ export const FolderMenu = ({anchorEl, handleCloseMenu}) => {
 
             </List>
 
-        </>)
+        </div>)
     }
 
 

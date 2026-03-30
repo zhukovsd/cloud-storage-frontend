@@ -84,7 +84,7 @@ export const FileMenu = ({anchorEl, handleCloseMenu, showViewVariants = true}) =
 
 
     const fileMenu = () => {
-        return (<>
+        return (<div>
             {showViewVariants &&
                 <>
 
@@ -273,7 +273,7 @@ export const FileMenu = ({anchorEl, handleCloseMenu, showViewVariants = true}) =
 
                 </List>
             </List>
-        </>)
+        </div>)
     }
 
     return (<>

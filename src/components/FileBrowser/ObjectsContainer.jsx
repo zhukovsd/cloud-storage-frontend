@@ -22,7 +22,6 @@ export const ObjectsContainer = () => {
     const {
         selectedIds, setSelectedIds, setSelectionMode,
         bufferIds,
-        startCopying,
         startCutting,
     } = useStorageSelection();
     const {deleteObject, pasteObjects} = useStorageOperations();
@@ -61,7 +60,7 @@ export const ObjectsContainer = () => {
 
     const handleKeyDown = (event) => {
         event.stopPropagation();
-        if(!allowShortcuts){
+        if (!allowShortcuts) {
             return;
         }
 
@@ -83,7 +82,7 @@ export const ObjectsContainer = () => {
             }
         }
 
-        if ((event.ctrlKey || event.metaKey) && allowToCut &&(key === "v" || key === "V" || key === "м" || key === "М")) {
+        if ((event.ctrlKey || event.metaKey) && allowToCut && (key === "v" || key === "V" || key === "м" || key === "М")) {
             event.preventDefault();
 
             if (bufferIds.length > 0) {
@@ -131,7 +130,8 @@ export const ObjectsContainer = () => {
                             {
                                 folderContent && !isSearchMode ?
                                     sortFolder(folderContent).map(
-                                        (item) => <StorageTileObject selectedIds={selectedIds}
+                                        (item, index) => <StorageTileObject key={index}
+                                                                     selectedIds={selectedIds}
                                                                      bufferIds={bufferIds}
                                                                      object={item}
                                                                      style={filesView}
@@ -139,11 +139,12 @@ export const ObjectsContainer = () => {
                                         />)
                                     :
                                     sortFolder(searchedContent).map(
-                                        (item) => <SearchObject object={item}
-                                                                style={filesView}
-                                                                bufferIds={bufferIds}
-                                                                handlePreview={handleOpenPreview}
-                                                                selectedIds={selectedIds}/>)
+                                        (item, index) => <SearchObject key={index}
+                                                                       object={item}
+                                                                       style={filesView}
+                                                                       bufferIds={bufferIds}
+                                                                       handlePreview={handleOpenPreview}
+                                                                       selectedIds={selectedIds}/>)
 
                             }
 
@@ -169,18 +170,21 @@ export const ObjectsContainer = () => {
                             {folderContent && !isSearchMode ?
 
                                 sortFolder(folderContent).map(
-                                    (item) => <StorageListObject object={item}
-                                                                 style={filesView}
-                                                                 bufferIds={bufferIds}
-                                                                 handlePreview={handleOpenPreview}
-                                                                 selectedIds={selectedIds}/>)
+                                    (item, index) => <StorageListObject object={item}
+                                                                        style={filesView}
+                                                                        bufferIds={bufferIds}
+                                                                        handlePreview={handleOpenPreview}
+                                                                        selectedIds={selectedIds}
+                                                                        key={index}
+                                    />)
                                 :
                                 sortFolder(searchedContent).map(
-                                    (item) => <SearchObject object={item}
-                                                            style={filesView}
-                                                            bufferIds={bufferIds}
-                                                            handlePreview={handleOpenPreview}
-                                                            selectedIds={selectedIds}/>)
+                                    (item, index) => <SearchObject key={index}
+                                                                   object={item}
+                                                                   style={filesView}
+                                                                   bufferIds={bufferIds}
+                                                                   handlePreview={handleOpenPreview}
+                                                                   selectedIds={selectedIds}/>)
                             }
                         </Box>
                 }
