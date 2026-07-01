@@ -8,7 +8,7 @@ window.APP_CONFIG = {
 
     //адрес вашего бэка. если пустой - значит на одном url с таким же портом.
     //если запускаете бэк и фронт через докер compose - тут ставите имя бэка в докер сети
-    baseUrl: "",
+    baseUrl: "http://localhost:8080",
 
     //API префикс вашего бэка
     baseApi: "/api",
@@ -81,12 +81,15 @@ window.APP_CONFIG = {
         //В данном мапинге подразумевается, что obj.path c бэка будет приходить со слэшом на конце.
         //Если объект находится в корневой директории - obj.path  - пустая строка. и после форматирования - path будет просто названием объекта
         mapObjectToFrontFormat: (obj) => {
+            const isDirectory = obj.type === "DIRECTORY";
+            const name = isDirectory && !obj.name.endsWith("/") ? `${obj.name}/` : obj.name;
+
             return {
                 lastModified: null,
-                name: obj.name,
+                name: name,
                 size: obj.size,
-                path: obj.path + obj.name, //путь в полном формате необходим для корректной навигации
-                folder: obj.type === "DIRECTORY" // фронт использует простой boolean. Если папка имеет другое название - смените
+                path: obj.path + name, //путь в полном формате необходим для корректной навигации
+                folder: isDirectory // фронт использует простой boolean. Если папка имеет другое название - смените
             }
         },
 
