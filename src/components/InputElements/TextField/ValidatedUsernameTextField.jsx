@@ -21,7 +21,7 @@ export default function ValidatedUsernameTextField({
         let isValid = true;
         let errMessage = '';
 
-        if (value && value.length < 5 && shouldValidate) {
+        if (value && value.length < minLength && shouldValidate) {
             errMessage = 'Минимальная длина имени пользователя ' + minLength + ' символов. ';
             isValid = false;
         }
@@ -29,7 +29,7 @@ export default function ValidatedUsernameTextField({
             errMessage += 'Недопустимые символы в имени пользователя. ';
             isValid = false;
         }
-        if (value && value.length > 20 && shouldValidate) {
+        if (value && value.length > maxLength && shouldValidate) {
             errMessage += 'Максимальная длина имени пользователя: ' + maxLength + ' символов. ';
             isValid = false;
         }
